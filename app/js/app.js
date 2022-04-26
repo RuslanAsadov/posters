@@ -3,6 +3,18 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-	// Custom JS
+	document
+		.querySelectorAll('.scroll-link')
+		.forEach($link => {
+			$link.addEventListener('click', e => {
+				e.preventDefault();
+				const $el = document.querySelector(e.target.getAttribute('href'));
+				window.scroll({
+					behavior: 'smooth',
+					left: 0,
+					top: $el.offsetTop
+				});
+			});
+		});
 
-})
+});

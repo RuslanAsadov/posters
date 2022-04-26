@@ -2,17 +2,17 @@
 	
 // USER VARIABLES SECTION
 
-$accent: orange // Accent Color
+$accent: #A61D1D // Accent Color
 $fontsize: 16px // Body Font Size
 $textcolor: #333 // Text Color
 $lineheight: 1.65 // Document Line Height
-$userfont: roboto-oh5, sans-serif // User Font Family
+$userfont: jost, sans-serif // User Font Family
 $breakpoints: (xs: 375px, sm: 576px, md: 768px, lg: 992px, xl: 1200px)
 $continer-gutter: 15px
 
 // IMPORTS SECTION
 
-// @import 'node_modules/bootstrap/scss/bootstrap-reboot.scss'
+@use 'node_modules/normalize.css/normalize.css'
 
 // FONTS LOAD SECTION
 
@@ -23,10 +23,16 @@ $continer-gutter: 15px
 		font-weight: $fweight
 		src: url($furl) format('woff2')
 
-@include font('roboto-oh5', normal, 400, '../fonts/roboto-regular-webfont.woff2')
-@include font('roboto-oh5', italic, 400, '../fonts/roboto-italic-webfont.woff2')
-@include font('roboto-oh5', normal, 700, '../fonts/roboto-bold-webfont.woff2')
-@include font('roboto-oh5', italic, 700, '../fonts/roboto-bolditalic-webfont.woff2')
+@include font('jost', normal, 300, '../fonts/Jost-Light.woff2')
+@include font('jost', italic, 300, '../fonts/Jost-LightItalic.woff2')
+@include font('jost', normal, 400, '../fonts/Jost-Regular.woff2')
+@include font('jost', italic, 400, '../fonts/Jost-Italic.woff2')
+@include font('jost', normal, 500, '../fonts/Jost-Medium.woff2')
+@include font('jost', italic, 500, '../fonts/Jost-MediumItalic.woff2')
+@include font('jost', normal, 700, '../fonts/Jost-Bold.woff2')
+@include font('jost', italic, 700, '../fonts/Jost-BoldItalic.woff2')
+@include font('jost', normal, 900, '../fonts/Jost-Black.woff2')
+@include font('jost', italic, 900, '../fonts/Jost-BlackItalic.woff2')
 
 // GENERAL CSS SETTINGS
 
@@ -44,6 +50,12 @@ input, textarea
 	&:required:valid
 		border-color: green
 
+html
+	box-sizing: border-box
+
+*, *::before, *::after
+	box-sizing: inherit
+
 body
 	font-family: $userfont
 	font-size: $fontsize
@@ -56,7 +68,7 @@ body
 // MIXINS
 
 @mixin breakpoint($px)
-	@media only screen and (max-width: rem($px))
+	@media only screen and (max-width: $px)
 		@content
 	
 // Extra large devices
