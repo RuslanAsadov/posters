@@ -1,6 +1,15 @@
 import Swiper, { Pagination, Navigation } from 'swiper'
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
 
+window.addEventListener('load', () => {
+	if (window.innerWidth > 992) {
+		const gameIframe = document.querySelector('.section-game__iframe');
+		if (gameIframe) {
+			setTimeout(() => gameIframe.src = 'https://www.artsteps.com/embed/62700f407bdb86462f77d338/1280/720', 0)
+		}
+	}
+});
+
 document.addEventListener('DOMContentLoaded', () => {
 
 	document
