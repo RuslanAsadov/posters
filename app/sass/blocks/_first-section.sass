@@ -7,7 +7,9 @@
   position: relative
   display: flex
   align-items: flex-end
-  padding: 18vh 0
+  padding: 18vh 20vh
+  @include md
+    padding: 12vh 0 27vh
   &::after
     content: ''
     display: block
@@ -49,9 +51,11 @@
     align-items: center
     justify-content: center
     position: absolute
-    bottom: 2vh
+    bottom: 4vh
     left: 50%
     transform: translateX(-50%)
+    @include md
+      bottom: 15vh
     &::after
       content: ''
       background-image: url('../images/arrow.svg')
