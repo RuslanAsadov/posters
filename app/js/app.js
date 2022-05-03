@@ -1,14 +1,24 @@
 import Swiper, { Pagination, Navigation } from 'swiper'
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
+const scrollTopSelector = '.scrolltop'
+const iframeGameSrc = 'https://www.artsteps.com/embed/62700f407bdb86462f77d338/1280/720'
 
 window.addEventListener('load', () => {
 	if (window.innerWidth > 992) {
 		const gameIframe = document.querySelector('.section-game__iframe');
 		if (gameIframe) {
-			setTimeout(() => gameIframe.src = 'https://www.artsteps.com/embed/62700f407bdb86462f77d338/1280/720', 0)
+			setTimeout(() => gameIframe.src = iframeGameSrc, 0)
 		}
 	}
 });
+
+window.addEventListener('scroll', e => {
+	if (window.scrollY > window.innerHeight) {
+		document.querySelector(scrollTopSelector)?.classList.add('active')
+	} else {
+		document.querySelector(scrollTopSelector)?.classList.remove('active')
+	}
+})
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -25,6 +35,14 @@ document.addEventListener('DOMContentLoaded', () => {
 				});
 			});
 		});
+
+	document.querySelector(scrollTopSelector)?.addEventListener('click', e => {
+		window.scroll({
+			behavior: 'smooth',
+			left: 0,
+			top: 0
+		});
+	})
 
 	new Swiper('.gallery-slider', {
 		modules: [Pagination, Navigation],
