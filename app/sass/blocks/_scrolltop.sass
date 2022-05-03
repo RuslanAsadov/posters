@@ -1,0 +1,36 @@
+.scrolltop
+  display: flex
+  justify-content: center
+  align-items: center
+  position: fixed
+  right: -100px
+  bottom: 5%
+  height: 50px
+  width: 50px
+  border-radius: 50%
+  background-color: #CCC
+  opacity: .5
+  z-index: 50
+  margin: 0
+  padding: 0
+  border: 0
+  transition: opacity .25s ease, right .25s ease
+  cursor: pointer
+  box-shadow: 0 0 8px 1px rgb(0 0 0 / 13%)
+  outline: none
+  &:hover
+    opacity: 1
+  &.active
+    right: 5%
+
+  &::after
+    content: ''
+    display: block
+    background-image: url(../images/angle-double-up.svg)
+    background-position: center
+    background-repeat: no-repeat
+    background-size: contain
+    width: 15px
+    height: 20px
+
+  
