@@ -8,13 +8,16 @@
   "type": "module",
   "private": true,
   "browserslist": [
-    "last 10 versions"
+    "defaults",
+    "not ie > 0",
+    "not ie_mob > 0",
+    "not dead"
   ],
   "license": "ISC",
   "scripts": {
     "start": "gulp",
     "build": "gulp build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gulp build && gh-pages -d dist"
   },
   "devDependencies": {
     "@babel/core": "^7.17.0",
@@ -48,6 +51,8 @@
     "webpack-stream": "^7.0.0"
   },
   "dependencies": {
-    "normalize.css": "^8.0.1"
+    "normalize.css": "^8.0.1",
+    "photoswipe": "^5.2.4",
+    "swiper": "^8.1.4"
   }
 }

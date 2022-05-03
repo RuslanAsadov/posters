@@ -3,6 +3,7 @@
 // USER VARIABLES SECTION
 
 $accent: #A61D1D // Accent Color
+$dark: #341616
 $fontsize: 16px // Body Font Size
 $textcolor: #333 // Text Color
 $lineheight: 1.65 // Document Line Height
@@ -13,6 +14,10 @@ $continer-gutter: 15px
 // IMPORTS SECTION
 
 @use 'node_modules/normalize.css/normalize.css'
+@use "node_modules/swiper/swiper.scss" with ($themeColor: $accent)
+@use "node_modules/swiper/modules/pagination/pagination.scss"
+@use "node_modules/swiper/modules/navigation/navigation.scss"
+@use "node_modules/photoswipe/dist/photoswipe.css"
 
 // FONTS LOAD SECTION
 
