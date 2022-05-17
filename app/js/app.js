@@ -1,16 +1,46 @@
 import Swiper, { Pagination, Navigation } from 'swiper'
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
-const scrollTopSelector = '.scrolltop'
-const iframeGameSrc = 'https://www.artsteps.com/embed/62826c4b4cf1c4d6b1f6be7d/1280/720'
+const scrollTopSelector = '.scrolltop';
 
+// Game
 window.addEventListener('load', () => {
-	if (window.innerWidth > 992) {
-		const gameIframe = document.querySelector('.section-game__iframe');
-		if (gameIframe) {
-			setTimeout(() => gameIframe.src = iframeGameSrc, 0)
-		}
+	const breakpoint = 992;
+	const iframeSrc = 'https://www.artsteps.com/embed/62826c4b4cf1c4d6b1f6be7d/1280/720';
+	const $toggle = document.querySelector('.section-game__toggle');
+	const $wrapper = document.querySelector('.section-game__wrapper');
+	let isStarted = true;
+
+	function startGame() {
+		if (isStarted) return;
+		$wrapper.querySelector('.section-game__iframe').src = iframeSrc;
+		$wrapper?.classList.add('show');
+		$toggle.textContent = 'Закрыть';
+		isStarted = true;
 	}
+
+	function closeGame() {
+		if (!isStarted) return;
+		$wrapper.querySelector('.section-game__iframe').src = 'about:blank';
+		$wrapper?.classList.remove('show');
+		$toggle.textContent = 'Запустить';
+		isStarted = false;
+	}
+
+	function updateVisualGame() {
+		window.innerWidth <= breakpoint ? closeGame() : startGame();
+	}
+
+	setTimeout(() => {
+		if (window.innerWidth > breakpoint) isStarted = false;
+		updateVisualGame();
+	}, 0);
+	window.onresize = updateVisualGame;
+
+	$toggle?.addEventListener('click', e => {
+		isStarted ? closeGame() : startGame();
+	});
 });
+
 
 window.addEventListener('scroll', e => {
 	if (window.scrollY > window.innerHeight) {
@@ -98,6 +128,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			console.log(e.target.getAttribute('href'))
 			document.querySelector(e.target.getAttribute('href'))?.click();
 		}
-	})
+	});
 
 });

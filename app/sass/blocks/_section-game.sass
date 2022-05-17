@@ -1,14 +1,27 @@
 .section-game
   padding-bottom: 50px
   text-align: center
-  @include lg
+
+  &__toggle
     display: none
-    
+    margin: 0 auto
+    @include lg
+      display: block
+    @include sm
+      width: 100%
+
   &__wrapper
     position: relative
     padding-bottom: 56.25%
     padding-top: 25px
     height: 0
+    display: none
+    @include lg
+      margin-top: 1rem
+      min-height: 550px
+    &.show
+      display: block
+
   &__iframe
     position: absolute
     top: 0
