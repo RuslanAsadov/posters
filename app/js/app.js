@@ -4,49 +4,73 @@ const scrollTopSelector = '.scrolltop';
 
 // Game
 window.addEventListener('load', () => {
-	const breakpoint = 992;
 	const iframeSrc = 'https://www.artsteps.com/embed/62826c4b4cf1c4d6b1f6be7d/1280/720';
-	const $toggle = document.querySelector('.section-game__toggle');
-	const $wrapper = document.querySelector('.section-game__wrapper');
-	let isStarted = true;
+	const breakpoint = 992;
+	const secondsToCloseOutsideViewport = 30;
+	const $sectionGame = document.querySelector('.section-game');
+	const $toggle = $sectionGame.querySelector('.section-game__toggle');
+	const $wrapper = $sectionGame.querySelector('.section-game__wrapper');
+	const $iframe = $sectionGame.querySelector('.section-game__iframe')
+	let isShown = false;
 
-	function startGame() {
-		if (isStarted) return;
-		$wrapper.querySelector('.section-game__iframe').src = iframeSrc;
+	function setSrc() {
+		if ($iframe.src === iframeSrc) return;
+		$iframe.src = iframeSrc;
+	}
+
+	function clearSrc() {
+		if ($iframe.src !== iframeSrc) return;
+		$iframe.src = 'about:blank';
+	}
+
+	function showGame() {
+		if (isShown) return;
+		setSrc();
 		$wrapper?.classList.add('show');
 		$toggle.textContent = 'Закрыть';
-		isStarted = true;
+		isShown = true;
 
-		if (window.innerWidth <= breakpoint) {
-			window.scroll({
-				behavior: 'smooth',
-				left: 0,
-				top: $toggle.offsetTop - 10
-			});
-		}
+		window.scroll({
+			behavior: 'smooth',
+			left: 0,
+			top: $sectionGame.offsetTop - 10
+		});
 	}
 
-	function closeGame() {
-		if (!isStarted) return;
-		$wrapper.querySelector('.section-game__iframe').src = 'about:blank';
+	function hideGame() {
+		if (!isShown) return;
 		$wrapper?.classList.remove('show');
-		$toggle.textContent = 'Запустить';
-		isStarted = false;
+		$toggle.textContent = 'Запустить здесь';
+		isShown = false;
 	}
-
-	function updateVisualGame() {
-		window.innerWidth <= breakpoint ? closeGame() : startGame();
-	}
-
-	setTimeout(() => {
-		if (window.innerWidth > breakpoint) isStarted = false;
-		updateVisualGame();
-	}, 0);
-	window.onresize = updateVisualGame;
 
 	$toggle?.addEventListener('click', () => {
-		isStarted ? closeGame() : startGame();
+		isShown ? hideGame() : showGame();
 	});
+
+	if (window.innerWidth >= breakpoint) {
+		let scrollTimeout = null;
+		window.addEventListener('scroll', () => {
+			const offset = 500;
+			if (
+				window.scrollY > $sectionGame.offsetTop - window.innerHeight - offset &&
+				window.scrollY < $sectionGame.offsetTop + $sectionGame.clientHeight + offset
+			) {
+				if (!isShown) setSrc();
+				if (scrollTimeout && isShown) {
+					clearTimeout(scrollTimeout);
+					scrollTimeout = null;
+				}
+			} else {
+				if (!isShown) clearSrc();
+				if (!scrollTimeout && isShown) {
+					scrollTimeout = setTimeout(() => {
+						hideGame();
+					}, secondsToCloseOutsideViewport * 1000)
+				}
+			}
+		});
+	}
 });
 
 
