@@ -3,52 +3,51 @@ import PhotoSwipeLightbox from 'photoswipe/lightbox';
 const scrollTopSelector = '.scrolltop';
 
 // Game
-window.addEventListener('load', () => {
-	const iframeSrc = 'https://www.artsteps.com/embed/62826c4b4cf1c4d6b1f6be7d/1280/720';
-	const breakpoint = 992;
-	const secondsToCloseOutsideViewport = 30;
-	const $sectionGame = document.querySelector('.section-game');
-	const $toggle = $sectionGame.querySelector('.section-game__toggle');
-	const $wrapper = $sectionGame.querySelector('.section-game__wrapper');
-	const $iframe = $sectionGame.querySelector('.section-game__iframe')
-	let isShown = false;
+if (window.innerWidth >= 992) {
+	window.addEventListener('load', () => {
+		const iframeSrc = 'https://www.artsteps.com/embed/62826c4b4cf1c4d6b1f6be7d/1280/720';
+		const secondsToCloseOutsideViewport = 30;
+		const $sectionGame = document.querySelector('.section-game');
+		const $toggle = $sectionGame.querySelector('.section-game__toggle');
+		const $wrapper = $sectionGame.querySelector('.section-game__wrapper');
+		const $iframe = $sectionGame.querySelector('.section-game__iframe')
+		let isShown = false;
 
-	function setSrc() {
-		if ($iframe.src === iframeSrc) return;
-		$iframe.src = iframeSrc;
-	}
+		function setSrc() {
+			if ($iframe.src === iframeSrc) return;
+			$iframe.src = iframeSrc;
+		}
 
-	function clearSrc() {
-		if ($iframe.src !== iframeSrc) return;
-		$iframe.src = 'about:blank';
-	}
+		function clearSrc() {
+			if ($iframe.src !== iframeSrc) return;
+			$iframe.src = 'about:blank';
+		}
 
-	function showGame() {
-		if (isShown) return;
-		setSrc();
-		$wrapper?.classList.add('show');
-		$toggle.textContent = 'Закрыть';
-		isShown = true;
+		function showGame() {
+			if (isShown) return;
+			setSrc();
+			$wrapper?.classList.add('show');
+			$toggle.innerHTML = 'Закрыть &#x2715;';
+			isShown = true;
 
-		window.scroll({
-			behavior: 'smooth',
-			left: 0,
-			top: $sectionGame.offsetTop - 10
+			window.scroll({
+				behavior: 'smooth',
+				left: 0,
+				top: $sectionGame.offsetTop - 10
+			});
+		}
+
+		function hideGame() {
+			if (!isShown) return;
+			$wrapper?.classList.remove('show');
+			$toggle.innerHTML = 'Запустить здесь &#8595; ';
+			isShown = false;
+		}
+
+		$toggle?.addEventListener('click', () => {
+			isShown ? hideGame() : showGame();
 		});
-	}
 
-	function hideGame() {
-		if (!isShown) return;
-		$wrapper?.classList.remove('show');
-		$toggle.textContent = 'Запустить здесь';
-		isShown = false;
-	}
-
-	$toggle?.addEventListener('click', () => {
-		isShown ? hideGame() : showGame();
-	});
-
-	if (window.innerWidth >= breakpoint) {
 		let scrollTimeout = null;
 		window.addEventListener('scroll', () => {
 			const offset = 500;
@@ -70,9 +69,8 @@ window.addEventListener('load', () => {
 				}
 			}
 		});
-	}
-});
-
+	});
+}
 
 window.addEventListener('scroll', () => {
 	if (window.scrollY > window.innerHeight) {
