@@ -16,6 +16,14 @@ window.addEventListener('load', () => {
 		$wrapper?.classList.add('show');
 		$toggle.textContent = 'Закрыть';
 		isStarted = true;
+
+		if (window.innerWidth <= breakpoint) {
+			window.scroll({
+				behavior: 'smooth',
+				left: 0,
+				top: $toggle.offsetTop - 10
+			});
+		}
 	}
 
 	function closeGame() {
@@ -36,13 +44,13 @@ window.addEventListener('load', () => {
 	}, 0);
 	window.onresize = updateVisualGame;
 
-	$toggle?.addEventListener('click', e => {
+	$toggle?.addEventListener('click', () => {
 		isStarted ? closeGame() : startGame();
 	});
 });
 
 
-window.addEventListener('scroll', e => {
+window.addEventListener('scroll', () => {
 	if (window.scrollY > window.innerHeight) {
 		document.querySelector(scrollTopSelector)?.classList.add('active')
 	} else {
@@ -66,7 +74,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			});
 		});
 
-	document.querySelector(scrollTopSelector)?.addEventListener('click', e => {
+	document.querySelector(scrollTopSelector)?.addEventListener('click', () => {
 		window.scroll({
 			behavior: 'smooth',
 			left: 0,
