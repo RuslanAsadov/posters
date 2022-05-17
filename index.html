@@ -122,15 +122,63 @@
   </div>
 </section>
 <section class="section section-game">
-  <div class="container">
+  <div class="container section-game__container">
     <h2 class="section-heading section-game__heading">Виртуальная галерея плакатов</h2>
-    <button class="button section-game__toggle">Показать</button>
-    <div class="section-game__wrapper show">
+    <button class="button section-game__toggle">Запустить здесь</button>
+    <a class="button section-game__mobile-link" href="https://www.artsteps.com/view/62826c4b4cf1c4d6b1f6be7d?currentUser" target="_blank">
+      Открыть
+    </a>
+    <div class="section-game__wrapper">
       <iframe class="section-game__iframe" src="about:blank" frameborder="0" allowfullscreen></iframe>
     </div>
   </div>
 </section>
 
+<section class="video-section">
+  <div class="container gallery-section__container">
+
+    <div class="video-section swiper">
+      <div class="video-section__list swiper-wrapper">
+        <div class="video-section__item gallery-poster swiper-slide" style="background-image: url('images/posters/1.jpg');">
+          <div class="gallery-poster__content">
+            <a href="#video-section-item-1" class="gallery-poster__title">Реклама кукурузы в СССР</a>
+            <p class="gallery-poster__text">1976 год</p>
+          </div>
+        </div>
+        <div class="video-section__item gallery-poster swiper-slide" style="background-image: url('images/posters/2.jpg');">
+          <div class="gallery-poster__content">
+            <a href="#video-section-item-2" class="gallery-poster__title">Реклама кукурузы в СССР</a>
+            <p class="gallery-poster__text">1976 год</p>
+          </div>
+        </div>
+        <div class="video-section__item gallery-poster swiper-slide" style="background-image: url('images/posters/3.jpg');">
+          <div class="gallery-poster__content">
+            <a href="#video-section-item-3" class="gallery-poster__title">Реклама кукурузы в СССР</a>
+            <p class="gallery-poster__text">1976 год</p>
+          </div>
+        </div>
+        <div class="video-section__item gallery-poster swiper-slide" style="background-image: url('images/posters/4.jpg');">
+          <div class="gallery-poster__content">
+            <a href="#video-section-item-4" class="gallery-poster__title">Реклама кукурузы в СССР</a>
+            <p class="gallery-poster__text">1976 год</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="video-section__pagination swiper-pagination"></div>
+    </div>
+
+    <div class="swiper-button-prev"></div>
+    <div class="swiper-button-next"></div>
+
+    <div class="video-section__photos photoswipe">
+      <a href="images/posters/1.jpg" id="video-section-item-1" data-pswp-width="357" data-pswp-height="509" target="_blank"></a>
+      <a href="images/posters/2.jpg" id="video-section-item-2" data-pswp-width="357" data-pswp-height="509" target="_blank"></a>
+      <a href="images/posters/3.jpg" id="video-section-item-3" data-pswp-width="357" data-pswp-height="509" target="_blank"></a>
+      <a href="images/posters/4.jpg" id="video-section-item-4" data-pswp-width="357" data-pswp-height="509" target="_blank"></a>
+    </div>
+  </div>
+</section>
 
 <button class="scrolltop"></button>
 
