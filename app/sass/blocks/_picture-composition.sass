@@ -1,0 +1,34 @@
+.picture-composition
+  display: flex
+  gap: 60px
+  align-items: center
+  &--reverse
+    flex-direction: row-reverse
+  @include md
+    flex-direction: column
+    gap: 20px
+
+  &__content
+    flex-basis: 63%
+    @include md
+      flex-basis: 100%
+
+  &__title
+    font-size: 1.3em
+    font-weight: 400
+    margin: 0
+    margin-bottom: 0.5em
+
+  &__text
+    margin: 0
+
+  &__image 
+    flex-basis: 37%
+    img
+      display: block
+      width: 100%
+      height: auto
+    @include md
+      flex-basis: 100%
+    @include xs
+      width: 100%
