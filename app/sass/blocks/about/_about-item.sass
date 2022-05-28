@@ -1,0 +1,36 @@
+.about-item
+  display: flex
+  text-align: left
+  @include lg
+    flex-direction: column
+
+  &__header
+    font-weight: 500
+    font-size: 1.1em
+    margin: 0
+    flex-shrink: 0
+    flex-basis: 33%
+    max-width: 33%
+    width: 100%
+    padding-right: 30px
+    @include lg
+      font-size: 1.2em
+      flex-basis: 100%
+      max-width: 100%
+      padding-right: 0
+      margin-bottom: 5px
+
+  &__body
+    margin-top: 2px
+    @include lg
+      margin-top: 0
+      margin-bottom: 2px
+    > * 
+      margin: 0
+      &:not(:last-child)
+        margin-bottom: 0.75em
+        @include lg
+          margin-bottom: 0.5em
+        
+    ol
+      padding-left: 1.3em

@@ -39,6 +39,38 @@ $continer-gutter: 15px
 @include font('jost', normal, 900, '../fonts/Jost-Black.woff2')
 @include font('jost', italic, 900, '../fonts/Jost-BlackItalic.woff2')
 
+// MIXINS
+
+@mixin breakpoint($px)
+	@media only screen and (max-width: $px)
+		@content
+	
+// Extra large devices
+@mixin xl
+	@media (max-width: map.get($breakpoints, 'xl'))
+		@content
+		
+// Large devices
+@mixin lg
+	@media (max-width: map.get($breakpoints, 'lg'))
+		@content
+		
+// Medium devices
+@mixin md
+	@media (max-width: map.get($breakpoints, 'md'))
+		@content
+
+// Small devices
+@mixin sm
+	@media (max-width: map.get($breakpoints, 'sm'))
+		@content
+
+@mixin xs
+	@media (max-width: map.get($breakpoints, 'xs'))
+		@content
+
+
+
 // GENERAL CSS SETTINGS
 
 ::placeholder
@@ -69,34 +101,10 @@ body
 	min-width: 320px
 	position: relative
 	overflow-x: hidden
-
-// MIXINS
-
-@mixin breakpoint($px)
-	@media only screen and (max-width: $px)
-		@content
-	
-// Extra large devices
-@mixin xl
-	@media (max-width: map.get($breakpoints, 'xl'))
-		@content
-		
-// Large devices
-@mixin lg
-	@media (max-width: map.get($breakpoints, 'lg'))
-		@content
-		
-// Medium devices
-@mixin md
-	@media (max-width: map.get($breakpoints, 'md'))
-		@content
-
-// Small devices
-@mixin sm
-	@media (max-width: map.get($breakpoints, 'sm'))
-		@content
-
-@mixin xs
-	@media (max-width: map.get($breakpoints, 'xs'))
-		@content
+	font-size: 22px
+	line-height: 1.45
+	@include lg
+		font-size: 20px
+	@include md
+		font-size: 18px
 

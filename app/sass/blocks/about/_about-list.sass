@@ -1,0 +1,31 @@
+.about-list
+  overflow: hidden
+  max-height: 310px
+  transition: max-height 700ms ease
+  position: relative
+  &::after
+    content: ''
+    display: block
+    position: absolute
+    left: 0
+    right: 0
+    bottom: 0
+    height: 80px
+    background: linear-gradient(to bottom,rgba(247, 247, 247, 0) 0%, rgba(247, 247, 247, 0.95) 85%, rgba(247, 247, 247, 1) 100%)
+    transition: opacity .25s ease
+
+  &--open
+    max-height: 3000px
+    &::after
+      opacity: 0
+
+  &__item
+    padding: 35px 0
+    border-bottom: 1px solid #BCBCBC
+    &:last-child
+      border-bottom: none
+    @include lg
+      padding: 25px 0
+    @include md
+      padding: 20px 0
+

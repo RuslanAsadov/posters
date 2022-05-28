@@ -1,84 +1,5 @@
 import Swiper, { Pagination, Navigation } from 'swiper'
 import PhotoSwipeLightbox from 'photoswipe/lightbox';
-const scrollTopSelector = '.scrolltop';
-
-// Game
-if (window.innerWidth >= 992) {
-	window.addEventListener('load', () => {
-		const iframeSrc = 'https://www.artsteps.com/embed/62826c4b4cf1c4d6b1f6be7d/1280/720';
-		const secondsToCloseOutsideViewport = 30;
-		const $sectionGame = document.querySelector('.section-game');
-		const $toggle = $sectionGame.querySelector('.section-game__toggle');
-		const $wrapper = $sectionGame.querySelector('.section-game__wrapper');
-		const $iframe = $sectionGame.querySelector('.section-game__iframe')
-		let isShown = false;
-
-		function setSrc() {
-			if ($iframe.src === iframeSrc) return;
-			$iframe.src = iframeSrc;
-		}
-
-		function clearSrc() {
-			if ($iframe.src !== iframeSrc) return;
-			$iframe.src = 'about:blank';
-		}
-
-		function showGame() {
-			if (isShown) return;
-			setSrc();
-			$wrapper?.classList.add('show');
-			$toggle.innerHTML = 'Закрыть &#x2715;';
-			isShown = true;
-
-			window.scroll({
-				behavior: 'smooth',
-				left: 0,
-				top: $sectionGame.offsetTop - 10
-			});
-		}
-
-		function hideGame() {
-			if (!isShown) return;
-			$wrapper?.classList.remove('show');
-			$toggle.innerHTML = 'Запустить здесь &#8595; ';
-			isShown = false;
-		}
-
-		$toggle?.addEventListener('click', () => {
-			isShown ? hideGame() : showGame();
-		});
-
-		let scrollTimeout = null;
-		window.addEventListener('scroll', () => {
-			const offset = 500;
-			if (
-				window.scrollY > $sectionGame.offsetTop - window.innerHeight - offset &&
-				window.scrollY < $sectionGame.offsetTop + $sectionGame.clientHeight + offset
-			) {
-				if (!isShown) setSrc();
-				if (scrollTimeout && isShown) {
-					clearTimeout(scrollTimeout);
-					scrollTimeout = null;
-				}
-			} else {
-				if (!isShown) clearSrc();
-				if (!scrollTimeout && isShown) {
-					scrollTimeout = setTimeout(() => {
-						hideGame();
-					}, secondsToCloseOutsideViewport * 1000)
-				}
-			}
-		});
-	});
-}
-
-window.addEventListener('scroll', () => {
-	if (window.scrollY > window.innerHeight) {
-		document.querySelector(scrollTopSelector)?.classList.add('active')
-	} else {
-		document.querySelector(scrollTopSelector)?.classList.remove('active')
-	}
-})
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -91,18 +12,28 @@ document.addEventListener('DOMContentLoaded', () => {
 				window.scroll({
 					behavior: 'smooth',
 					left: 0,
-					top: $el.offsetTop
+					top: $el?.offsetTop
 				});
 			});
 		});
 
-	document.querySelector(scrollTopSelector)?.addEventListener('click', () => {
+	// Scroll Top
+	document.querySelector('.scrolltop')?.addEventListener('click', () => {
 		window.scroll({
 			behavior: 'smooth',
 			left: 0,
 			top: 0
 		});
-	})
+	});
+	window.addEventListener('scroll', () => {
+		if (window.scrollY >= window.innerHeight) {
+			document.querySelector('.scrolltop')?.classList.add('active')
+		} else {
+			document.querySelector('.scrolltop')?.classList.remove('active')
+		}
+	});
+
+
 
 	new Swiper('.gallery-slider', {
 		modules: [Pagination, Navigation],
@@ -149,15 +80,32 @@ document.addEventListener('DOMContentLoaded', () => {
 		children: 'a',
 		pswpModule: () => import('photoswipe')
 	});
+
 	lightbox.init();
 
-	document.querySelector('.gallery-slider').addEventListener('click', e => {
-		console.log(e.target);
+	document.querySelector('.gallery-slider')?.addEventListener('click', e => {
 		if (e.target.classList.contains('gallery-poster__title')) {
 			e.preventDefault();
 			console.log(e.target.getAttribute('href'))
 			document.querySelector(e.target.getAttribute('href'))?.click();
 		}
+	});
+
+	// Button section about
+	const $aboutList = document.querySelector('.about-list');
+	document.querySelector('.section-about__button')?.addEventListener('click', (e) => {
+		if ($aboutList.classList.contains('about-list--open')) {
+			$aboutList.classList.remove('about-list--open');
+			e.target.textContent = "Показать полностью";
+		} else {
+			$aboutList.classList.add('about-list--open');
+			e.target.textContent = "Скрыть";
+		}
+		window.scroll({
+			behavior: 'smooth',
+			left: 0,
+			top: e.target.closest('.section-about')?.offsetTop
+		});
 	});
 
 });
