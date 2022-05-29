@@ -33,23 +33,66 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-	new Swiper('.gallery-slider', {
+	document.querySelectorAll('.gallery-slider-wrapper')?.forEach($gallerySlider => {
+		new Swiper($gallerySlider.querySelector('.gallery-slider'), {
+			modules: [Pagination, Navigation],
+			loop: true,
+			speed: 600,
+			simulateTouch: false,
+			spaceBetween: 5,
+			maxBackfaceHiddenSlides: 0,
+			pagination: {
+				el: '.swiper-pagination',
+				clickable: true,
+				dynamicBullets: true
+			},
+			navigation: {
+				nextEl: $gallerySlider.querySelector('.swiper-button-next'),
+				prevEl: $gallerySlider.querySelector('.swiper-button-prev'),
+			},
+			breakpoints: {
+				480: {
+					slidesPerView: 1,
+					slidesPerGroup: 1,
+				},
+				768: {
+					slidesPerView: 2,
+					slidesPerGroup: 2,
+					spaceBetween: 15
+				},
+				992: {
+					slidesPerView: 3,
+					slidesPerGroup: 3,
+					spaceBetween: 5
+				},
+				1200: {
+					slidesPerView: 4,
+					slidesPerGroup: 4,
+				}
+			}
+		});
+	});
+
+	const $videoSlider = document.querySelector('.video-slider-wrapper');
+	new Swiper($videoSlider.querySelector('.video-slider'), {
 		modules: [Pagination, Navigation],
 		loop: true,
 		speed: 600,
 		simulateTouch: false,
-		spaceBetween: 5,
-		// loopedSlides: 7,
+		maxBackfaceHiddenSlides: 0,
 		pagination: {
 			el: '.swiper-pagination',
 			clickable: true,
 			dynamicBullets: true
 		},
 		navigation: {
-			nextEl: '.swiper-button-next',
-			prevEl: '.swiper-button-prev',
+			nextEl: $videoSlider.querySelector('.swiper-button-next'),
+			prevEl: $videoSlider.querySelector('.swiper-button-prev'),
 		},
 		breakpoints: {
+			0: {
+				spaceBetween: 15
+			},
 			480: {
 				slidesPerView: 1,
 				slidesPerGroup: 1,
@@ -57,15 +100,8 @@ document.addEventListener('DOMContentLoaded', () => {
 			768: {
 				slidesPerView: 2,
 				slidesPerGroup: 2,
+				spaceBetween: 5
 			},
-			992: {
-				slidesPerView: 3,
-				slidesPerGroup: 3,
-			},
-			1200: {
-				slidesPerView: 4,
-				slidesPerGroup: 4,
-			}
 		}
 	});
 
@@ -77,14 +113,46 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	lightbox.init();
 
-	document.querySelectorAll('.gallery-slider').forEach(gallery => {
-		gallery?.addEventListener('click', e => {
+	document.querySelectorAll('.gallery-slider').forEach($gallery => {
+		$gallery?.addEventListener('click', e => {
 			if (e.target.classList.contains('gallery-poster__title')) {
 				e.preventDefault();
 				document.querySelector(e.target.getAttribute('href'))?.click();
 			}
 		});
-	})
+	});
+
+
+	function getYoutubeIdFromUrl(url) {
+		var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??(v=)?([^#&?]*).*/;
+		var match = url.match(regExp);
+		return (match && match[8].length == 11) ? match[8] : false;
+	}
+
+
+	// Videos
+	const $videoModal = document.querySelector('.video-modal');
+	document.querySelectorAll('.video-link').forEach($link => {
+		$link?.addEventListener('click', e => {
+			if (window.innerWidth >= 768 && $videoModal) {
+				e.preventDefault();
+				const videoId = getYoutubeIdFromUrl(e.target.getAttribute('href'));
+				$videoModal.querySelector('iframe').src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+				$videoModal.classList.add('show');
+			}
+		});
+	});
+
+	$videoModal.addEventListener('click', e => {
+		if (!e.target.classList.contains('video-section__container')) {
+			$videoModal.classList.add('hiding');
+			setTimeout(() => {
+				$videoModal.classList.remove('hiding');
+				$videoModal.classList.remove('show');
+				$videoModal.querySelector('iframe').src = 'about:blank';
+			}, 250);
+		}
+	});
 
 	// Button section about
 	const $aboutList = document.querySelector('.about-list');
