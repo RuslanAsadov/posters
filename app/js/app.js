@@ -137,7 +137,16 @@ document.addEventListener('DOMContentLoaded', () => {
 			if (window.innerWidth >= 768 && $videoModal) {
 				e.preventDefault();
 				const videoId = getYoutubeIdFromUrl(e.target.getAttribute('href'));
-				$videoModal.querySelector('iframe').src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+
+				$videoModal
+					.querySelector('.video-modal__iframe-wrapper')
+					.insertAdjacentHTML('beforeend', `
+						<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1" class="video-modal__iframe" title="YouTube video player"
+							frameborder="0"
+							allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+							allowfullscreen>
+						</iframe>
+					`);
 				$videoModal.classList.add('show');
 			}
 		});
@@ -149,7 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			setTimeout(() => {
 				$videoModal.classList.remove('hiding');
 				$videoModal.classList.remove('show');
-				$videoModal.querySelector('iframe').src = 'about:blank';
+				$videoModal.querySelector('iframe').remove();
 			}, 250);
 		}
 	});
@@ -228,7 +237,6 @@ document.addEventListener('DOMContentLoaded', () => {
 		const docViewBottom = docViewTop + window.innerHeight;
 		const chartOffsetTop = $chart.offsetTop;
 		const chartOffsetBottom = chartOffsetTop + $chart.offsetHeight;
-		console.log(docViewTop, docViewBottom, chartOffsetTop, chartOffsetBottom)
 
 		if ((chartOffsetTop + $chart.offsetHeight - 200 <= docViewBottom) && (chartOffsetBottom >= docViewTop)) {
 			new Chart(ctx, config);
@@ -236,4 +244,54 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	}
 	window.addEventListener('scroll', scrollCallbackChart);
+
+	var lazyloadImages;
+
+	if ("IntersectionObserver" in window) {
+		lazyloadImages = document.querySelectorAll(".lazy");
+		var imageObserver = new IntersectionObserver(function (entries, observer) {
+			entries.forEach(function (entry) {
+				if (entry.isIntersecting) {
+					var image = entry.target;
+					image.src = image.dataset.src;
+					image.classList.remove("lazy");
+					imageObserver.unobserve(image);
+				}
+			});
+		}, {
+			rootMargin: '500px'
+		});
+
+		lazyloadImages.forEach(function (image) {
+			imageObserver.observe(image);
+		});
+	} else {
+		var lazyloadThrottleTimeout;
+		lazyloadImages = document.querySelectorAll(".lazy");
+
+		function lazyload() {
+			if (lazyloadThrottleTimeout) {
+				clearTimeout(lazyloadThrottleTimeout);
+			}
+
+			lazyloadThrottleTimeout = setTimeout(function () {
+				var scrollTop = window.pageYOffset;
+				lazyloadImages.forEach(function (img) {
+					if (img.offsetTop < (window.innerHeight + scrollTop)) {
+						img.src = img.dataset.src;
+						img.classList.remove('lazy');
+					}
+				});
+				if (lazyloadImages.length == 0) {
+					document.removeEventListener("scroll", lazyload);
+					window.removeEventListener("resize", lazyload);
+					window.removeEventListener("orientationChange", lazyload);
+				}
+			}, 20);
+		}
+
+		document.addEventListener("scroll", lazyload);
+		window.addEventListener("resize", lazyload);
+		window.addEventListener("orientationChange", lazyload);
+	}
 });

@@ -103,7 +103,8 @@ function buildcopy() {
 		'{app/js,app/css}/*.min.*',
 		'app/images/**/*.*',
 		'!app/images/src/**/*',
-		'app/fonts/**/*'
+		'app/fonts/**/*',
+		'app/assets/**/*'
 	], { base: 'app/' })
 		.pipe(dest('dist'))
 }
