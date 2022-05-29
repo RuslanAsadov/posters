@@ -1,0 +1,40 @@
+.category-heading
+  font-weight: 600
+  font-size: 60px
+  color: $accent
+  text-align: center
+  line-height: 1.2
+  margin: 0 0 0.8em
+  @include md
+    margin: 0 0 0.6em
+    font-size: 50px
+  @include sm
+    font-size: 45px
+  &__text
+    position: relative
+    padding-right: 100px
+    @include lg
+      padding-right: 0
+    &::after
+      content: ''
+      position: absolute
+      display: block
+      right: 0
+      top: 0
+      bottom: 0
+      width: 67px
+      transform: translateY(3px)
+      background-size: contain
+      background-position: center
+      background-repeat: no-repeat
+      @include lg
+        display: none
+
+  &--fish &__text::after
+    background-image: url('../images/fish-icon.svg')
+  &--meet &__text::after
+    background-image: url('../images/meet-icon.svg')
+  &--bread &__text::after
+    background-image: url('../images/bread-icon.svg')
+  &--corn &__text::after
+    background-image: url('../images/corn-icon.svg')

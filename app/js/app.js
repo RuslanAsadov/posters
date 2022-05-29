@@ -33,16 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 	});
 
-
-
 	new Swiper('.gallery-slider', {
 		modules: [Pagination, Navigation],
 		loop: true,
 		speed: 600,
-		slidesPerView: 4,
-		slidesPerGroup: 4,
-		spaceBetween: 10,
-		loopedSlides: 15,
+		simulateTouch: false,
+		spaceBetween: 5,
+		// loopedSlides: 7,
 		pagination: {
 			el: '.swiper-pagination',
 			clickable: true,
@@ -53,22 +50,19 @@ document.addEventListener('DOMContentLoaded', () => {
 			prevEl: '.swiper-button-prev',
 		},
 		breakpoints: {
-			// when window width is >= 320px
-			320: {
+			480: {
 				slidesPerView: 1,
 				slidesPerGroup: 1,
 			},
-			// when window width is >= 480px
-			480: {
+			768: {
 				slidesPerView: 2,
 				slidesPerGroup: 2,
 			},
-			// when window width is >= 640px
-			768: {
+			992: {
 				slidesPerView: 3,
 				slidesPerGroup: 3,
 			},
-			992: {
+			1200: {
 				slidesPerView: 4,
 				slidesPerGroup: 4,
 			}
@@ -83,13 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	lightbox.init();
 
-	document.querySelector('.gallery-slider')?.addEventListener('click', e => {
-		if (e.target.classList.contains('gallery-poster__title')) {
-			e.preventDefault();
-			console.log(e.target.getAttribute('href'))
-			document.querySelector(e.target.getAttribute('href'))?.click();
-		}
-	});
+	document.querySelectorAll('.gallery-slider').forEach(gallery => {
+		gallery?.addEventListener('click', e => {
+			if (e.target.classList.contains('gallery-poster__title')) {
+				e.preventDefault();
+				document.querySelector(e.target.getAttribute('href'))?.click();
+			}
+		});
+	})
 
 	// Button section about
 	const $aboutList = document.querySelector('.about-list');
