@@ -1,5 +1,5 @@
 @use "sass:map"
-	
+  
 // USER VARIABLES SECTION
 
 $accent: #A61D1D // Accent Color
@@ -22,11 +22,11 @@ $continer-gutter: 15px
 // FONTS LOAD SECTION
 
 @mixin font($fname, $fstyle, $fweight, $furl)
-	@font-face
-		font-family: $fname
-		font-style: $fstyle
-		font-weight: $fweight
-		src: url($furl) format('woff2')
+  @font-face
+    font-family: $fname
+    font-style: $fstyle
+    font-weight: $fweight
+    src: url($furl) format('woff2')
 
 @include font('jost', normal, 300, '../fonts/Jost-Light.woff2')
 @include font('jost', italic, 300, '../fonts/Jost-LightItalic.woff2')
@@ -42,69 +42,69 @@ $continer-gutter: 15px
 // MIXINS
 
 @mixin breakpoint($px)
-	@media only screen and (max-width: $px)
-		@content
-	
+  @media only screen and (max-width: $px)
+    @content
+  
 // Extra large devices
 @mixin xl
-	@media (max-width: map.get($breakpoints, 'xl'))
-		@content
-		
+  @media (max-width: map.get($breakpoints, 'xl'))
+    @content
+    
 // Large devices
 @mixin lg
-	@media (max-width: map.get($breakpoints, 'lg'))
-		@content
-		
+  @media (max-width: map.get($breakpoints, 'lg'))
+    @content
+    
 // Medium devices
 @mixin md
-	@media (max-width: map.get($breakpoints, 'md'))
-		@content
+  @media (max-width: map.get($breakpoints, 'md'))
+    @content
 
 // Small devices
 @mixin sm
-	@media (max-width: map.get($breakpoints, 'sm'))
-		@content
+  @media (max-width: map.get($breakpoints, 'sm'))
+    @content
 
 @mixin xs
-	@media (max-width: map.get($breakpoints, 'xs'))
-		@content
+  @media (max-width: map.get($breakpoints, 'xs'))
+    @content
 
 
 
 // GENERAL CSS SETTINGS
 
 ::placeholder
-	color: #666
+  color: #666
 
 ::selection
-	background-color: $accent
-	color: #fff
+  background-color: $accent
+  color: #fff
 
 input, textarea
-	outline: none
-	&:focus:required:invalid
-		border-color: red
-	&:required:valid
-		border-color: green
+  outline: none
+  &:focus:required:invalid
+    border-color: red
+  &:required:valid
+    border-color: green
 
 html
-	box-sizing: border-box
+  box-sizing: border-box
 
 *, *::before, *::after
-	box-sizing: inherit
+  box-sizing: inherit
 
 body
-	font-family: $userfont
-	font-size: $fontsize
-	line-height: $lineheight
-	color: $textcolor
-	min-width: 320px
-	position: relative
-	overflow-x: hidden
-	font-size: 24px
-	line-height: 1.45
-	@include lg
-		font-size: 22px
-	@include md
-		font-size: 18px
+  font-family: $userfont
+  font-size: $fontsize
+  line-height: $lineheight
+  color: $textcolor
+  min-width: 320px
+  position: relative
+  overflow-x: hidden
+  font-size: 24px
+  line-height: 1.45
+  @include lg
+    font-size: 22px
+  @include md
+    font-size: 18px
 
