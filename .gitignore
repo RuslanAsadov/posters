@@ -3,3 +3,6 @@ Thumbs.db
 .DS_Store
 dist
 .idea
+**/*.min.js
+**/*.min.css
+app/css
