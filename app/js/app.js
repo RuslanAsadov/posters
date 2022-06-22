@@ -116,14 +116,20 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   lightbox.init();
 
+  const startGalleryByHref = (e) => {
+    e.preventDefault();
+    document.querySelector(e.target.getAttribute('href'))?.click();
+  }
+
   document.querySelectorAll('.gallery-slider').forEach($gallery => {
     $gallery?.addEventListener('click', e => {
       if (e.target.classList.contains('gallery-poster__title')) {
-        e.preventDefault();
-        document.querySelector(e.target.getAttribute('href'))?.click();
+        startGalleryByHref(e);
       }
     });
   });
+
+  document.querySelector('.section-game__gallery')?.addEventListener('click', startGalleryByHref);
 
   // Videos modal
   function getYoutubeIdFromUrl(url) {
