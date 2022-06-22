@@ -44,6 +44,7 @@
     "gulp-sass": "^5.1.0",
     "gulp-sass-glob": "^1.1.0",
     "gulp-stylus": "^2.7.1",
+    "http-server": "^14.1.1",
     "postcss": "^8.4.6",
     "sass": "^1.49.7",
     "terser-webpack-plugin": "^5.3.1",
